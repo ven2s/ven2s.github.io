@@ -58,3 +58,7 @@ excerpt_separator: "\n\n\n\n"
 # paginate
 gems: [jekyll-paginate]
 paginate: 6
+
+#plugin
+#plugins: [youtube]
+plugins_dir: ./_plugins

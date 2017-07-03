@@ -127,111 +127,6 @@ $(document).bind('dragstart',function(){return false;});
             
               <li>
                 <h2>
-                  <a class="post-link" href="/2017/05/17/RaspberryPI-And-Docker/">[공부해서남주기] Raspberry Pi 입문 그리고 Docker</a>
-                </h2>
-                <div class="label">
-                    <div class="label-card">
-                        <i class="fa fa-calendar"></i>2017-05-17
-                    </div>
-                    <div class="label-card">
-                        
-                    </div>
-                    <div class="label-card">
-                        
-                    </div>
-
-                    <div class="label-card">
-                    
-
-
-<!-- <span class="point">•</span> -->
-<span class="categories">
-
-  <i class="fa fa-th-list"></i>
-  
-    
-        <a href="/category/#Study" title="Category: Study" rel="category">Study</a>
-    
-  
-
-  <!-- <span class="point">•</span> -->
-</span>
-
-
-                    </div>
-
-                    <div class="label-card">
-                    
-<!-- <span class="point">•</span> -->
-<span class="pageTag">
-  <i class="fa fa-tags"></i>
-  
-    
-        <a href="/tag/#공부해서남주기" title="Tag: 공부해서남주기" rel="tag">공부해서남주기</a>&nbsp;
-    
-        <a href="/tag/#RazberryPI" title="Tag: RazberryPI" rel="tag">RazberryPI</a>&nbsp;
-    
-        <a href="/tag/#Docker" title="Tag: Docker" rel="tag">Docker</a>&nbsp;
-    
-        <a href="/tag/#Begginer" title="Tag: Begginer" rel="tag">Begginer</a>
-    
-  
-
-</span>
-
-                    </div>
-                </div>
-                <div class="excerpt">
-                    <p>안녕하세요 웬스(ven2s)입니다. 이번 포스팅은 라즈베리파이 그리고 Docker에 대해서 해보려고 합니다.</p>
-
-<p>지금 리즈베리파이3모델B 를 통해서 서버프로그래밍을 도전 해보려고 준비 중입니다.</p>
-
-<p>“라즈베리파이로 도커를 사용 할수 있다는 말을 듣고 서버머신 하나 만들고 내 공부도 좀 해봐야겠다.” 라는 생각에 도전? 하게 되었습니다.</p>
-
-<p>일단 현재 도커까지는 문제 없이 설치를 하였습니다. 이제 하면서 Node.JS와 Java 그리고 Swift 세가지를 가지고 서버 프로그래밍을 해볼 예정이구요. 더 나아가서는 Python도 도전해보려고 합니다. NodeJS와 자바는 그나마 익숙한 언어들이라서 괜찮을 것 같네요</p>
-
-<p>아무튼 일단 라즈베리파이와 도커에대해서 일단 써보려고 합니다.</p>
-
-<p>일단 라즈베리파이 지금은 라즈베리파3모델B가 가장 최신 사양이고 카더라 통신들에 의하면 4버전이 나올 것 같다고 하죠…</p>
-
-<p>라즈베리파이 말고도 많이 있습니다. 오렌지파이, 바나나파이, 아두이노 등등 소형컴퓨터를 통해서 이것 저것 만들어 볼수 있습니다. 그중 좀 흔한 아두이노는 좀 임베디드쪽에 초점이 맞춰져 있다면 라즈베리는 컴퓨팅에 좀 맞춰져 있는것 같습니다.
-뭐 사용자가 어떻게 사용하기 나름이겠지만요</p>
-
-<p>저는 테스트 서버용도로 쓰고 혹은 소형컴퓨터에 사용 할수 있는 것들을 해보기 위해서 구매를 했습니다.</p>
-
-<p>구매를 원하시면 인터넷에서 잘 검색해보시고 구매를 현명하게 하시길 바랍니다.</p>
-
-<p>생각보다 이것 저것 사면 돈이 생각보다 들어가는 녀석입니다.</p>
-
-<p>자 이제 시작해볼꼐요 일단은 Docker(이하 도커)에 대해서 이야기 를 해봅시다</p>
-
-<h2 id="1-docker도커">1. Docker(도커)?</h2>
-
-<p>도커로고이미지를 보면 고래가 컨테이너를 싣고 다니는 로고 입니다. 
-도커는 리눅스의 Contrainer기술을 사용한 가상화 플랫폼정도로 이해하시면 초보자 분들이 쉽게 이해 하실수 있겠네요</p>
-
-<p><img src="http://server-monitor.pingdom.com/Content/plugin_urls/logos/docker-fc29bb5ca020be3accaa6aa570908157.png" alt="도커이미지" /></p>
-
-<p>자세한 내용 참고하시고 싶으시면 가셔서 읽어보시면 되겠습니다. 
-(링크 : <a href="https://subicura.com/2017/01/19/docker-guide-for-beginners-1.html">subicura.com - 초보를 위한 도커 안내서</a>)</p>
-
-<p>가장 중요한건 <strong>dockerfile</strong>을 만드는 일인데 고맙게도 깃허브와 마찬가지로 <strong><a href="https://hub.docker.com/">도커허브</a></strong>가 있습니다.
-가입을 하시고 이미지 파일을 잘 찾으셔서 사용하셔도 되고 만드셔서 공유를 하셔도 됩니다.</p>
-
-<center>
-<iframe id="ytplayer" width="560" height="315" src="http://www.youtube.com/embed/92BfuxHn2XE?color=white&amp;theme=light&amp;html5-1&amp;enablejsapi=1"></iframe>
-</center>
-
-
-                </div>
-                <div class="read-all">
-                    <a  href="/2017/05/17/RaspberryPI-And-Docker/"><i class="fa fa-newspaper-o"></i>Read All</a>
-                </div>
-                <hr>
-              </li>
-            
-              <li>
-                <h2>
                   <a class="post-link" href="/2017/04/20/Firebase-Realtime-Database-2/">[공부해서남주기] Firebase 실시간 데이터베이스 #2</a>
                 </h2>
                 <div class="label">
@@ -1613,8 +1508,6 @@ JSON의 기본은 인터넷에 많이 있습니다. 참고 하시길 바랍니�
                 </div>
                 <ul class="content-ul" recent>
                     
-                        <li><a href="/2017/05/17/RaspberryPI-And-Docker/">[공부해서남주기] Raspberry Pi 입문 그리고 Docker</a></li>
-                    
                         <li><a href="/2017/04/20/Firebase-Realtime-Database-2/">[공부해서남주기] Firebase 실시간 데이터베이스 #2</a></li>
                     
                         <li><a href="/2017/04/19/Firebase-Realtime-Database-1/">[공부해서남주기] Firebase 실시간 데이터베이스 #1</a></li>
@@ -1641,7 +1534,7 @@ JSON의 기본은 인터넷에 많이 있습니다. 참고 하시길 바랍니�
                             <span class="name">
                                 Study
                             </span>
-                            <span class="badge">6</span>
+                            <span class="badge">5</span>
                         </a>
                     </li>
                     
@@ -1674,56 +1567,35 @@ JSON의 기본은 인터넷에 많이 있습니다. 참고 하시길 바랍니�
                       
                       
                       
-                      <a href="/tag/#이론" style="font-size: 12.5pt; color: #555;">이론</a>
+                      <a href="/tag/#이론" style="font-size: 12pt; color: #666;">이론</a>
                     
                       
                       
                       
                       
                       
-                      <a href="/tag/#컴퓨터기초" style="font-size: 12.5pt; color: #555;">컴퓨터기초</a>
+                      <a href="/tag/#컴퓨터기초" style="font-size: 12pt; color: #666;">컴퓨터기초</a>
                     
                       
                       
                       
                       
                       
-                      <a href="/tag/#Firebase" style="font-size: 11pt; color: #777;">Firebase</a>
+                      <a href="/tag/#Firebase" style="font-size: 9pt; color: #999;">Firebase</a>
                     
                       
                       
                       
                       
                       
-                      <a href="/tag/#Swift" style="font-size: 11pt; color: #777;">Swift</a>
+                      <a href="/tag/#Swift" style="font-size: 9pt; color: #999;">Swift</a>
                     
                       
                       
                       
                       
                       
-                      <a href="/tag/#RealtimeDatabase" style="font-size: 11pt; color: #777;">RealtimeDatabase</a>
-                    
-                      
-                      
-                      
-                      
-                      
-                      <a href="/tag/#RazberryPI" style="font-size: 9pt; color: #999;">RazberryPI</a>
-                    
-                      
-                      
-                      
-                      
-                      
-                      <a href="/tag/#Docker" style="font-size: 9pt; color: #999;">Docker</a>
-                    
-                      
-                      
-                      
-                      
-                      
-                      <a href="/tag/#Begginer" style="font-size: 9pt; color: #999;">Begginer</a>
+                      <a href="/tag/#RealtimeDatabase" style="font-size: 9pt; color: #999;">RealtimeDatabase</a>
                     
                 </div>
             </div>

@@ -5,69 +5,9 @@
     <description></description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 04 Jul 2017 00:01:34 +0900</pubDate>
-    <lastBuildDate>Tue, 04 Jul 2017 00:01:34 +0900</lastBuildDate>
+    <pubDate>Tue, 04 Jul 2017 02:49:16 +0900</pubDate>
+    <lastBuildDate>Tue, 04 Jul 2017 02:49:16 +0900</lastBuildDate>
     <generator>Jekyll v3.4.0</generator>
-    
-      <item>
-        <title>[공부해서남주기] Raspberry Pi 입문 그리고 Docker</title>
-        <description>안녕하세요 웬스(ven2s)입니다. 이번 포스팅은 라즈베리파이 그리고 Docker에 대해서 해보려고 합니다.
-
-지금 리즈베리파이3모델B 를 통해서 서버프로그래밍을 도전 해보려고 준비 중입니다.
-
-“라즈베리파이로 도커를 사용 할수 있다는 말을 듣고 서버머신 하나 만들고 내 공부도 좀 해봐야겠다.” 라는 생각에 도전? 하게 되었습니다.
-
-일단 현재 도커까지는 문제 없이 설치를 하였습니다. 이제 하면서 Node.JS와 Java 그리고 Swift 세가지를 가지고 서버 프로그래밍을 해볼 예정이구요. 더 나아가서는 Python도 도전해보려고 합니다. NodeJS와 자바는 그나마 익숙한 언어들이라서 괜찮을 것 같네요
-
-아무튼 일단 라즈베리파이와 도커에대해서 일단 써보려고 합니다.
-
-일단 라즈베리파이 지금은 라즈베리파3모델B가 가장 최신 사양이고 카더라 통신들에 의하면 4버전이 나올 것 같다고 하죠…
-
-라즈베리파이 말고도 많이 있습니다. 오렌지파이, 바나나파이, 아두이노 등등 소형컴퓨터를 통해서 이것 저것 만들어 볼수 있습니다. 그중 좀 흔한 아두이노는 좀 임베디드쪽에 초점이 맞춰져 있다면 라즈베리는 컴퓨팅에 좀 맞춰져 있는것 같습니다.
-뭐 사용자가 어떻게 사용하기 나름이겠지만요
-
-저는 테스트 서버용도로 쓰고 혹은 소형컴퓨터에 사용 할수 있는 것들을 해보기 위해서 구매를 했습니다.
-
-구매를 원하시면 인터넷에서 잘 검색해보시고 구매를 현명하게 하시길 바랍니다.
-
-생각보다 이것 저것 사면 돈이 생각보다 들어가는 녀석입니다.
-
-자 이제 시작해볼꼐요 일단은 Docker(이하 도커)에 대해서 이야기 를 해봅시다
-
-&lt;h2 id=&quot;1-docker도커&quot;&gt;1. Docker(도커)?&lt;/h2&gt;
-
-도커로고이미지를 보면 고래가 컨테이너를 싣고 다니는 로고 입니다. 
-도커는 리눅스의 Contrainer기술을 사용한 가상화 플랫폼정도로 이해하시면 초보자 분들이 쉽게 이해 하실수 있겠네요
-
-&lt;img src=&quot;http://server-monitor.pingdom.com/Content/plugin_urls/logos/docker-fc29bb5ca020be3accaa6aa570908157.png&quot; alt=&quot;도커이미지&quot; /&gt;
-
-자세한 내용 참고하시고 싶으시면 가셔서 읽어보시면 되겠습니다. 
-(링크 : &lt;a href=&quot;https://subicura.com/2017/01/19/docker-guide-for-beginners-1.html&quot;&gt;subicura.com - 초보를 위한 도커 안내서&lt;/a&gt;)
-
-가장 중요한건 &lt;strong&gt;dockerfile&lt;/strong&gt;을 만드는 일인데 고맙게도 깃허브와 마찬가지로 &lt;strong&gt;&lt;a href=&quot;https://hub.docker.com/&quot;&gt;도커허브&lt;/a&gt;&lt;/strong&gt;가 있습니다.
-가입을 하시고 이미지 파일을 잘 찾으셔서 사용하셔도 되고 만드셔서 공유를 하셔도 됩니다.
-
-&lt;center&gt;
-&lt;iframe id=&quot;ytplayer&quot; width=&quot;560&quot; height=&quot;315&quot; src=&quot;http://www.youtube.com/embed/92BfuxHn2XE?color=white&amp;amp;theme=light&amp;amp;html5-1&amp;amp;enablejsapi=1&quot;&gt;&lt;/iframe&gt;
-&lt;/center&gt;
-
-</description>
-        <pubDate>Wed, 17 May 2017 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/2017/05/17/RaspberryPI-And-Docker/</link>
-        <guid isPermaLink="true">http://localhost:4000/2017/05/17/RaspberryPI-And-Docker/</guid>
-        
-        <category>공부해서남주기</category>
-        
-        <category>RazberryPI</category>
-        
-        <category>Docker</category>
-        
-        <category>Begginer</category>
-        
-        
-        <category>Study</category>
-        
-      </item>
     
       <item>
         <title>[공부해서남주기] Firebase 실시간 데이터베이스 #2</title>

@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>[공부해서남주기] Firebase 실시간 데이터베이스 #1</title>
+    <meta name="description" content="안녕하세요! 웬스(ven2s)입니다. 오늘은 Firebase와 NoSQL에 대해서 알아보려고 합니다.일단 이 포스팅은 Swift에 대한 기본 지식이 조금은 있으셔야 하구요. 어느정도 XCode를 만져보셨으면 이해하시기 쉬울껍니다.그리고 설정에 관한 부분은 공식 홈페이지가 더 잘나와...">
+
+    <link rel="shortcut icon" href="/favicon.ico?" type="image/x-icon">
+    <link rel="icon" href="/favicon.ico?" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://at.alicdn.com/t/font_8v3czwksspqlg14i.css">
+    <link rel="stylesheet" href="/css/main.css ">
+    <link rel="canonical" href="http://localhost:4000/2017/04/19/Firebase-Realtime-Database-1/">
+    <link rel="alternate" type="application/rss+xml" title="웬스의 Log("일상", "공부", "관심사", "기타등")" href="http://localhost:4000/feed.xml ">
+
+<!--  -->
+
+    <script>
+    // google analytics
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-97789290-1', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+
+
+
+<!-- youtube mute -->
+<script src="/js/ytMute.js"></script>
+<!-- no right click and drag -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script> 
+$(document).ready(function(){
+ $(document).bind("contextmenu", function(e) {
+  return false;
+ });
+});
+$(document).bind('selectstart',function() {return false;}); 
+$(document).bind('dragstart',function(){return false;}); 
+</script>
+</head>
+
+
+  <body>
+
+    <header id="top">
+    <div class="wrapper">
+        <a href="/" class="brand">웬스의 Log("일상", "공부", "관심사", "기타등")</a>
+        <small></small>
+        <button id="headerMenu" class="menu"><i class="fa fa-bars"></i></button>
+        <nav id="headerNav">
+            <ul>
+                <li>
+                    
+                    <a href="/">
+                    
+                        <i class="fa fa-home"></i>Home
+                    </a>
+                </li>
+
+                
+                    
+                    <li>
+                        
+                        <a href="/archive/">
+                        
+                            <i class="fa fa-archive"></i>Archives
+                        </a>
+                    </li>
+                    
+                
+                    
+                    <li>
+                        
+                        <a href="/category/">
+                        
+                            <i class="fa fa-th-list"></i>Categories
+                        </a>
+                    </li>
+                    
+                
+                    
+                    <li>
+                        
+                        <a href="/tag/">
+                        
+                            <i class="fa fa-tags"></i>Tags
+                        </a>
+                    </li>
+                    
+                
+                    
+                    <li>
+                        
+                        <a href="/about/">
+                        
+                            <i class="fa fa-heart"></i>About
+                        </a>
+                    </li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+        </nav>
+    </div>
+</header>
+
+
+        <div class="page clearfix" post>
+    <div class="left">
+        <h1>[공부해서남주기] Firebase 실시간 데이터베이스 #1</h1>
+        <div class="label">
+
+            <div class="label-card">
+                <i class="fa fa-calendar"></i>2017-04-19
+            </div>
+
+            <div class="label-card">
+                
+            </div>
+
+            <div class="label-card">
+                
+            </div>
+
+            <div class="label-card">
+            
+
+
+<!-- <span class="point">•</span> -->
+<span class="categories">
+
+  <i class="fa fa-th-list"></i>
+  
+    
+        <a href="/category/#Study" title="Category: Study" rel="category">Study</a>
+    
+  
+
+  <!-- <span class="point">•</span> -->
+</span>
+
+
+            </div>
+
+            <div class="label-card">
+            
+<!-- <span class="point">•</span> -->
+<span class="pageTag">
+  <i class="fa fa-tags"></i>
+  
+    
+        <!--a href="/tag/#%EA%B3%B5%EB%B6%80%ED%95%B4%EC%84%9C%EB%82%A8%EC%A3%BC%EA%B8%B0" title="Tag: 공부해서남주기" rel="tag">공부해서남주기</a-->
+        <a href="/tag/#공부해서남주기" title="Tag: 공부해서남주기" rel="tag">공부해서남주기</a>&nbsp;
+    
+        <!--a href="/tag/#Firebase" title="Tag: Firebase" rel="tag">Firebase</a-->
+        <a href="/tag/#Firebase" title="Tag: Firebase" rel="tag">Firebase</a>&nbsp;
+    
+        <!--a href="/tag/#Swift" title="Tag: Swift" rel="tag">Swift</a-->
+        <a href="/tag/#Swift" title="Tag: Swift" rel="tag">Swift</a>&nbsp;
+    
+        <!--a href="/tag/#RealtimeDatabase" title="Tag: RealtimeDatabase" rel="tag">RealtimeDatabase</a-->
+        <a href="/tag/#RealtimeDatabase" title="Tag: RealtimeDatabase" rel="tag">RealtimeDatabase</a>
+    
+  
+
+</span>
+
+            </div>
+
+        </div>
+        <hr>
+        <article itemscope itemtype="http://schema.org/BlogPosting">
+        <div id="mouse_no" oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
+        <p>안녕하세요! 웬스(ven2s)입니다. 오늘은 Firebase와 NoSQL에 대해서 알아보려고 합니다.</p>
+
+<p>일단 이 포스팅은 Swift에 대한 기본 지식이 조금은 있으셔야 하구요. 어느정도 XCode를 만져보셨으면 이해하시기 쉬울껍니다.</p>
+
+<p>그리고 설정에 관한 부분은 공식 홈페이지가 더 잘나와 있기 때문에 별도로 작성하지 않겠습니다.</p>
+
+<h2 id="1-firebase">1. FIrebase?</h2>
+
+<p>Firebase 구글 에서 발표한지가 16년 3월정도에 발표했던 기억이 있네요. 저한테는 나름의 충격을 준 녀석입니다.
+구글에서 클라우드데이터베이스 회사인 <strong>Firebase</strong> 를 인수하면서 완전히 이제는 구글 사단에 넘어간 녀석입니다. (현재는 Fabric도 인수하여 Firebase팀에 소속 되어 있습니다)</p>
+
+<p>간단하게 말하자면 “서버프로그래밍이 없이 서버가 하는 역활을 수행해주는 플랫폼” 라고 생각하시면 되겠습니다.</p>
+
+<p>Firebase는 여러가지 기능을 제공해줍니다. 데이터베이스, 분석, 광고, FCM(Firebase Cloud Message), 파일 저장공간등 많은 부분을 서버프로그래밍을 하지 않아도 SDK를 통해서 구현할 수 있게 도와줍니다.</p>
+
+<p>그 중에서 실시간데이터베이스(Realtime Database)에 대해서 글을 써나아 가려고 합니다 .</p>
+
+<p>기능에 대한 것과 설치 및 설정은  <a href="http://firebase.google.com">http://firebase.google.com</a>에 가셔서 보시면 됩니다 :)</p>
+
+<h2 id="2-nosql">2. NoSQL</h2>
+
+<p>Firebase에 대해서 좀 알아보기 전에 앞서 NoSQL에 대해서 간단하게 알려드리려고 합니다.
+일단은 어느정도 개발을 해보신분들이라면 MySQL, Oracle, Potgre SQL등 관계형데이터베이스 대해서 한번은 해보셨거나 안했거나 일껍니다. 주의 하셔야 할 점을 먼저 알려드리고 넘어가야겠네요</p>
+
+<p>반드시!, 관계형데이터베이스를 먼제 배우신 분들은 그 개념을 NoSQL으로 적용 하지 마세요!</p>
+
+<p>완전히 다른 개념으로 생각을 하셔야 접근이 쉽습니다 :)</p>
+
+<p>일단 NoSQL은 간단하게 보면 <strong>비관계형데이터베이스</strong> 라고 보시면 되겠습니다. 음…그렇죠…관계형데이터베이스를 반대되는 개념…..근데…좀…뭔가가….</p>
+
+<p>부가적으로 말하자면 스키마가 없는 데이터베이스입니다. 
+(* 스키마란? Table, Column 과 같은 데이터베이스를 구성하는 도식(설계) 혹은 구성을 말합니다. )</p>
+
+<p><strong>스키마</strong>가 없는 데이터베이스이기 때문에 테이블을 구성하는 스키마 혹은 컬럼의 자료형 등 규칙이 따로 없습니다.
+덕분에 <strong>확장성 용이</strong> 합니다. 관계형데이터베이스 기준으로는 스키마를 바꾸게 되면 필요한 작업을 해야 하고 데이터에 대한 마이그레이션을 진행해야 합니다.(데이터가 많이 있다면 어휴…) 
+하지만 NoSQL은 스키마가 없기 때문에 그냥 새로운 컬럼이 있으면 데이터를 넣기만 하면 됩니다.</p>
+
+<p>전반적으로 봤을때 NoSQL은 기존의 관계형데이터베이스가 가진 단점을 보완한 형태라고 생각하시면 됩니다.
+최근에는 빅데이터 시대가 되면서 이를 저장하는 데이터베이스도 기존의 형태와는 달라야 했기 때문입니다.
+그리고 괸라를 용이하게 하기 위한 <strong>분산처리</strong>와 <strong>데이터의 안정성</strong>을 위해서 개발이 되었습니다.</p>
+
+<p>그렇기 떄문에 관계형데이터베이스 관점에서 보게 된다면 더 어려운 개념으로 보시게 될껍니다.</p>
+
+<p>NoSQL 뭐 명칭에 대해서는 Not Only SQL이다 말 그대로 No SQL이다. 말들이 있지만 하지만 제 생각에는 NoSQL인거 같습니다. (정식적으로는 Not Only SQL입니다.), SQL말고도 더 있는 부분이 있습니다.</p>
+
+<p>NoSQL의 종류와 데이터베이스</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>종   류</th>
+      <th>특  징</th>
+      <th>데이터베이스</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Key-Value</td>
+      <td>가장 기본적, 범위검색 힘듬</td>
+      <td>다이나모, 리악, 레디스, 캐시, 프로젝트 볼드모트</td>
+    </tr>
+    <tr>
+      <td>Column</td>
+      <td>키-값에서 확장되어 한개의 컬럼에 여러개를 저장 할수 있음</td>
+      <td>H베이스, 아큐물로</td>
+    </tr>
+    <tr>
+      <td>Document</td>
+      <td>JSON, XML과 같은 형식을 사용</td>
+      <td>Firebase, MongoDB, CoauchDB</td>
+    </tr>
+    <tr>
+      <td>Graph</td>
+      <td>좀더 유연한 그래프모델을 사용한다. 확장성이 더 용이하다</td>
+      <td>Neo4J, 알레그로그래프, 버투오소</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>저희가 앞으로 사용할 녀석은 Firebase 는 문서형(Document)에 해당합니다.</p>
+
+<p>Firebase는 SQL(Structured Query Language)를 사용하지 않고 JSON(JavaScript Object Notation)방식의 문서를 사용하여 저장을 합니다
+가장 이해하기 쉽게 말하면 JSON(JavaScript Object Notation을 Dictionary형태(Key-Value)를 사용하여 데이터를 주고 받을수 있도록 제공하고 있습니다. (<a href="http://www.json.org/json-ko.html">JSON에 대한 설명 보기</a>)</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="nt">"key1"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"value"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"key2"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">012341254</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"key3"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+</div>
+
+<p>보통은 위에 3가지 타입까지 인식이 가능합니다. 물론 배열도 가능합니다. 소수점도 역시 가능합니다.
+단, JSON을 인식하는 타입에 대한 부분은 사용하는 라이브러리 혹은 플랫폼마다 상이 할 수는 있습니다.
+JSON의 기본은 인터넷에 많이 있습니다. 참고 하시길 바랍니다.</p>
+
+<p>NoSQL은 3.5세대의 새로운 형태의 차세대데이터베이스입니다.
+하지만 무조건 좋은건 아닙니다. 요즘에는 BigData시대로 확장성이 용이한 부분에서 사용이 되고 있고
+아직도 몇몇 기업에서는 MySQL과 같은 SQL을 사용하는 곳도 있습니다.
+각자에게 맞는 모델링을 찾아본다음 그후에 결정 하는것이 맞다고 봅니다.</p>
+
+<p>일단 제가 Firebase를 사용 하면서 가장 힘들었던 부분은 NoSQL에 대한 모델링 부분 이었습니다.
+기존에 RDBMS를 사용해왔었고, 익숙해져왔기 떄문에 처음 모델링을 할당시만 하더라도 이해가 안되는 부분이 많아서 고생을 많이 했습니다. 특히, 관계모델링인 (E-R)에 관점에서 생각하다보니 문제가 많았죠…</p>
+
+<p>부질없는 짓이었습니다. 그냥 완전히 E-R관점이 아닌 다른 시각에서 출발하셔야 합니다.
+즉, 각각의 관계는 없다라고 생각하고 출발하시면 조금은 출발하시기 쉬우실껍니다. (Join, Group등 생각을 버리세요)</p>
+
+<h2 id="3-firebase-실시간-데이터베이스">3. Firebase 실시간 데이터베이스</h2>
+
+<p>실제로는 사용하는 부분에 있어서 JSON을 사용되지 않습니다. SDK에서는 Dictionary타입을 사용 하고 있습니다. 하지만 내부에서는 JSON 문서를 통해서 저장을 하고 있기 때문에 알고는 가야 하는 부분이라고 생각해서 간단하게 하고 넘어갔습니다. (사실 요즘에는 http통신간에 가장 많이 사용하고 있기도 합니다.)</p>
+
+<p>조금 더 구조에 대해서 알아보고 가도록 하겠습니다.</p>
+
+<p>기본적으로는 부모자식관계를 가지고 Node형태의 방식으로 데이터구조가 쌓이게 되어 있습니다.
+ Dictionary 구조로 설명을 하자면 키(부모) 값(자식)을 구조로 되어 있다고 생각 하시면 됩니다.
+ 트리구조 라고 말씀드리면 더 쉽게 이해하시기 쉬울껍니다.</p>
+
+<p><img src="http://cfile27.uf.tistory.com/image/172BB3424EC4951D0B1E05" alt="트리구조" /></p>
+
+<p>출처 : <a href="http://www.i-swear.com/677">i-swear.com</a></p>
+
+<p>게시판으로 예를 들도록 하겠습니다.</p>
+
+<p>게시판에서 기본적으로 필요한 모델을 구성을 할때 필요한 값들이 있습니다.</p>
+
+<p>최소한으로 놓고 본다면, <strong>게시물고유값(번호), 제목, 작성자, 본문, 작성일, 수정일</strong> 까지 필요하다고 합시다.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>게시번호</th>
+      <th>작성자</th>
+      <th>제목</th>
+      <th>본문</th>
+      <th>작성일</th>
+      <th>수정일</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>master</td>
+      <td>[공지]첫 게시글</td>
+      <td>안녕하세요</td>
+      <td>20170419000000</td>
+      <td>20170419000000</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>user1</td>
+      <td>반갑습니다 ~</td>
+      <td>제곧내</td>
+      <td>20170419000000</td>
+      <td>20170419000000</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>user2</td>
+      <td>뭐하는 곳일까요?</td>
+      <td>쓸떄없는 글?</td>
+      <td>20170419000000</td>
+      <td>20170419000000</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>대충 이렇게 데이터가 쌓여 있다고 합시다 (보기 편하게 테이블로 표현 했습니다)</p>
+
+<p>이제는 실제로 파이어베이스에서는 어떻게 구조가 되는지 보도록 합시다.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="nt">"Board"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"1"</span><span class="w"> </span><span class="p">:{</span><span class="w">
+            </span><span class="nt">"author"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"master"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"title"</span><span class="w">  </span><span class="p">:</span><span class="w"> </span><span class="s2">"[공지]첫 게시글"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"body"</span><span class="w">   </span><span class="p">:</span><span class="w"> </span><span class="s2">"안녕하세요"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nt">"createTime"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">20170419000000</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"editTime"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">20170419000000</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nt">"2"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nt">"author"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"user1"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"title"</span><span class="w">  </span><span class="p">:</span><span class="w"> </span><span class="s2">"[반갑습니다 ~"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"body"</span><span class="w">   </span><span class="p">:</span><span class="w"> </span><span class="s2">"제곧내"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nt">"createTime"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">20170419000000</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"editTime"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">20170419000000</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nt">"3"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nt">"author"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"user2"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"title"</span><span class="w">  </span><span class="p">:</span><span class="w"> </span><span class="s2">"뭐하는 곳일까요?"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"body"</span><span class="w">   </span><span class="p">:</span><span class="w"> </span><span class="s2">"쓸떄없는 글?"</span><span class="p">,</span><span class="w"> 
+            </span><span class="nt">"createTime"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">20170419000000</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"editTime"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">20170419000000</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+</div>
+
+<p>이러한 형태로 계속 데이터가 쌓이게 되는 형태로 되어 있습니다.확실히 테이블로 보던 녀석과는 좀 다릅니다.<br />
+실제 파이어베이스의 프로젝트내부로 들어가면 보이는 형태는 그래픽으로 나와있습니다. <br />
+하지만 테이블 형태가 트리구조로 표현이 되어 있습니다.<br /></p>
+
+<p>그렇기 때문에 ER관계도를 생각하시면 더 어렵습니다. 물론 JSON형태를 사용하기 때문에 배열형태도 사용이 가능합니다. 하지만 특별한 부분이 아니면 이러한 방식을 권해드리고 싶습니다.</p>
+
+<p>이러한 문서형으로 되어 있기때문에 가장 힘든부분이 사실상은 JOIN과 특정 부분의 Sort가 힘듭니다.</p>
+
+<p>보통 게시판을 모델링 할때는 관계형데이터베이스는 Primary Key 와 Forein Key를 가지고 관계를 지어줍니다.</p>
+
+<p>하지만 NoSQL은 스키마가 없습니다. 그래서 관계에 대한 정의를 해줄수가 없습니다.</p>
+
+<p>만약 1번 게시물에 댓글을 간단하게 표현한다면(Board노드는 생략)</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="nt">"1"</span><span class="w"> </span><span class="p">:{</span><span class="w">
+        </span><span class="nt">"author"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"master"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"title"</span><span class="w">  </span><span class="p">:</span><span class="w"> </span><span class="s2">"[공지]첫 게시글"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"body"</span><span class="w">   </span><span class="p">:</span><span class="w"> </span><span class="s2">"안녕하세요"</span><span class="p">,</span><span class="w"> 
+        </span><span class="nt">"createTime"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">20170419000000</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"editTime"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">20170419000000</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"reply"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nt">"1"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nt">"author"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"user3"</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"text"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"안녕하세요 영자님"</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"time"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">2017042140000</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+</div>
+
+<p>위에와 같은 형태가 되는 것이 맞습니다.</p>
+
+<p>아니면 reply란 항목이 나와서 별도로 게시물의 번호값을 가지고 있던가 하는 방식이 맞을것 같네요 <br />
+(여러명이서 작업을 할때는 나눠놓는것을 추천 드립니다. 혼동이 올수가 있습니다.)</p>
+
+<p>이제 어느정도 이해 하셨는지 모르겠네요?</p>
+
+<p>이처럼 NoSQL와 Firebase 실시간데이터베이스에 대해서 간단하게 알아봤습니다.</p>
+
+<p>다음 포스팅에는 기본사용법을 가지고 어떻게 사용하는지에 대해서 알려드리고자 합니다.</p>
+
+<p>궁금하신 부분은 아래 댓글에 남겨주시면 제가 아는 방법한도에서 알려드리도록 하겠습니다.</p>
+
+<p>아 깜빡하고 다루지 않은 부분이 있습니다. 권한에 관련된 부분인데요 <br />
+이 방법은 그냥 링크로 대체를 하려고 합니다. 너무 설명이 잘 나와 있어서 <br />
+<br />
+그냥 읽어보시면 이해를 하실 정도 입니다. 이 부분은 사용하는데 있어서 중요한 부분이니 꼭 지나치지 마시고 읽어주시길 바랍니다. <br /></p>
+
+<p><a href="https://firebase.google.com/docs/database/security/">https://firebase.google.com/docs/database/security/</a></p>
+
+        </div>
+        </article>
+        <hr>
+
+        
+        
+            
+            
+                
+                    
+                        
+                        <h2 id="similar_posts">Similar Posts</h2>
+                        <ul>
+                        
+                        <li class="relatedPost">
+                            <a href="/2017/05/17/RaspberryPI-And-Docker/">[공부해서남주기] Raspberry Pi 입문 그리고 Docker
+                            
+                            </a>
+                        </li>
+                        
+                        
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+        
+            
+            
+                
+                    
+                        
+                        <li class="relatedPost">
+                            <a href="/2017/04/20/Firebase-Realtime-Database-2/">[공부해서남주기] Firebase 실시간 데이터베이스 #2
+                            
+                            </a>
+                        </li>
+                        
+                        
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+        
+            
+            
+                
+                    
+                        
+                        <li class="relatedPost">
+                            <a href="/2016/05/14/Theorry-DataStructure-And-Algorism/">[이론] 자료구조와 알고리즘
+                            
+                            </a>
+                        </li>
+                        
+                        
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+        
+            
+            
+                
+                    
+                        
+                        <li class="relatedPost">
+                            <a href="/2016/05/14/Theorry-Computing-And-OS/">[이론] 컴퓨터의 연산 와 운영체제
+                            
+                            </a>
+                        </li>
+                        
+                        
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+        
+            
+            
+                
+                    
+                        
+                        <li class="relatedPost">
+                            <a href="/2016/05/03/Theory-About-Computer/">[이론] 컴퓨터란
+                            
+                            </a>
+                        </li>
+                        
+                        
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+        
+        
+            </ul>
+        
+
+        <div class="post-recent">
+    <div class="pre">
+        
+        <p><strong>
+Previous</strong> <a href="/2016/05/14/Theorry-DataStructure-And-Algorism/">[이론] 자료구조와 알고리즘</a></p>
+        
+    </div>
+    <div class="nex">
+
+        
+        <p><strong>Next</strong> <a href="/2017/04/20/Firebase-Realtime-Database-2/">[공부해서남주기] Firebase 실시간 데이터베이스 #2</a></p>
+        
+    </div>
+</div>
+
+
+        <h2 id="comments">Comments</h2>
+        
+
+
+<div id="disqus_thread"></div>
+<script>
+    /**
+     * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+     */
+
+    var disqus_config = function() {
+        this.page.url = 'http://localhost:4000/2017/04/19/Firebase-Realtime-Database-1/'; // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = 'http://localhost:4000/2017/04/19/Firebase-Realtime-Database-1/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document,
+            s = d.createElement('script');
+
+        s.src = '//ven2s.disqus.com/embed.js';
+
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+
+
+    </div>
+    <button class="anchor"><i class="fa fa-anchor"></i></button>
+    <div class="right">
+        <div class="wrap">
+
+            <!-- Content -->
+            <div class="side content">
+                <div>
+                    Content
+                </div>
+                <ul id="content-side" class="content-ul">
+                    
+                    <li><a href="#similar_posts">Similar Posts</a></li>
+                    
+                    <li><a href="#comments">Comments</a></li>
+                </ul>
+            </div>
+            <!-- 其他div框放到这里 -->
+            <!-- <div class="side">bbbb</div> -->
+        </div>
+    </div>
+</div>
+<script>
+/**
+ * target _blank
+ */
+(function() {
+    var aTags = document.querySelectorAll('article a:not([id])')
+    for (var i = 0; i < aTags.length; i++) {
+        aTags[i].setAttribute('target', '_blank')
+    }
+}());
+</script>
+<script src="/js/pageContent.js " charset="utf-8"></script>
+
+
+    <footer class="site-footer">
+
+
+    <div class="wrapper">
+
+        <p class="description">
+            
+        </p>
+        <p class="contact">
+            Contact me at: 
+            <a href="https://github.com/ven2s" title="GitHub"><i class="fa fa-github" aria-hidden="true"></i></a>  
+            <a href="mailto:ven2s.soft@gmail.com" title="email"><i class="fa fa-envelope-o" aria-hidden="true"></i></a>        
+        </p>
+       <!--  <p>
+            
+Total visits to this site <span id="busuanzi_value_site_pv"></span>, the number of visitors to this site <span id="busuanzi_value_site_uv"></span> The total amount of reading in this article <span id="busuanzi_value_page_pv"></span>
+        </p> -->
+        <p>Copyright© 2016 by David June Kang(ven2s). All rights reserved.</p>
+        <p class="power">
+            <span>
+                Site powered by <a href="https://jekyllrb.com/">Jekyll</a> & <a href="https://pages.github.com/">Github Pages</a>.
+            </span>
+            <span>
+                Theme designed by <a href="https://github.com/Gaohaoyang">HyG</a>.
+            </span>
+        </p>
+    </div>
+</footer>
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+    <div class="back-to-top">
+    <a href="#top" data-scroll>
+        <i class="fa fa-arrow-up" aria-hidden="true"></i>
+    </a>
+</div>
+
+    <script src=" /js/main.js " charset="utf-8"></script>
+    <script src=" /js/smooth-scroll.min.js " charset="utf-8"></script>
+    <script type="text/javascript">
+      smoothScroll.init({
+        speed: 500, // Integer. How fast to complete the scroll in milliseconds
+        easing: 'easeInOutCubic', // Easing pattern to use
+        offset: 20, // Integer. How far to offset the scrolling anchor location in pixels
+      });
+    </script>
+    <!-- <script src=" /js/scroll.min.js " charset="utf-8"></script> -->
+  </body>
+
+</html>

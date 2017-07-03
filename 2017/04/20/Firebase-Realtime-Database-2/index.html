@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>[공부해서남주기] Firebase 실시간 데이터베이스 #2</title>
+    <meta name="description" content="안녕하세요! 웬스(ven2s)입니다. 오늘은 Firebase 실시간 데이터베이스 기본기능에 대해서 알아보려고 합니다.일단 이 포스팅은 iOS, Swift의 기본을 어느정도 익히신분을 대상으로 작성되었습니다.그리고 설정에 관한 부분은 공식 홈페이지가 더 잘나와 있기 때문에 별도로 작...">
+
+    <link rel="shortcut icon" href="/favicon.ico?" type="image/x-icon">
+    <link rel="icon" href="/favicon.ico?" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://at.alicdn.com/t/font_8v3czwksspqlg14i.css">
+    <link rel="stylesheet" href="/css/main.css ">
+    <link rel="canonical" href="http://localhost:4000/2017/04/20/Firebase-Realtime-Database-2/">
+    <link rel="alternate" type="application/rss+xml" title="웬스의 Log("일상", "공부", "관심사", "기타등")" href="http://localhost:4000/feed.xml ">
+
+<!--  -->
+
+    <script>
+    // google analytics
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-97789290-1', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+
+
+
+<!-- youtube mute -->
+<script src="/js/ytMute.js"></script>
+<!-- no right click and drag -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script> 
+$(document).ready(function(){
+ $(document).bind("contextmenu", function(e) {
+  return false;
+ });
+});
+$(document).bind('selectstart',function() {return false;}); 
+$(document).bind('dragstart',function(){return false;}); 
+</script>
+</head>
+
+
+  <body>
+
+    <header id="top">
+    <div class="wrapper">
+        <a href="/" class="brand">웬스의 Log("일상", "공부", "관심사", "기타등")</a>
+        <small></small>
+        <button id="headerMenu" class="menu"><i class="fa fa-bars"></i></button>
+        <nav id="headerNav">
+            <ul>
+                <li>
+                    
+                    <a href="/">
+                    
+                        <i class="fa fa-home"></i>Home
+                    </a>
+                </li>
+
+                
+                    
+                    <li>
+                        
+                        <a href="/archive/">
+                        
+                            <i class="fa fa-archive"></i>Archives
+                        </a>
+                    </li>
+                    
+                
+                    
+                    <li>
+                        
+                        <a href="/category/">
+                        
+                            <i class="fa fa-th-list"></i>Categories
+                        </a>
+                    </li>
+                    
+                
+                    
+                    <li>
+                        
+                        <a href="/tag/">
+                        
+                            <i class="fa fa-tags"></i>Tags
+                        </a>
+                    </li>
+                    
+                
+                    
+                    <li>
+                        
+                        <a href="/about/">
+                        
+                            <i class="fa fa-heart"></i>About
+                        </a>
+                    </li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+        </nav>
+    </div>
+</header>
+
+
+        <div class="page clearfix" post>
+    <div class="left">
+        <h1>[공부해서남주기] Firebase 실시간 데이터베이스 #2</h1>
+        <div class="label">
+
+            <div class="label-card">
+                <i class="fa fa-calendar"></i>2017-04-20
+            </div>
+
+            <div class="label-card">
+                
+            </div>
+
+            <div class="label-card">
+                
+            </div>
+
+            <div class="label-card">
+            
+
+
+<!-- <span class="point">•</span> -->
+<span class="categories">
+
+  <i class="fa fa-th-list"></i>
+  
+    
+        <a href="/category/#Study" title="Category: Study" rel="category">Study</a>
+    
+  
+
+  <!-- <span class="point">•</span> -->
+</span>
+
+
+            </div>
+
+            <div class="label-card">
+            
+<!-- <span class="point">•</span> -->
+<span class="pageTag">
+  <i class="fa fa-tags"></i>
+  
+    
+        <!--a href="/tag/#%EA%B3%B5%EB%B6%80%ED%95%B4%EC%84%9C%EB%82%A8%EC%A3%BC%EA%B8%B0" title="Tag: 공부해서남주기" rel="tag">공부해서남주기</a-->
+        <a href="/tag/#공부해서남주기" title="Tag: 공부해서남주기" rel="tag">공부해서남주기</a>&nbsp;
+    
+        <!--a href="/tag/#Firebase" title="Tag: Firebase" rel="tag">Firebase</a-->
+        <a href="/tag/#Firebase" title="Tag: Firebase" rel="tag">Firebase</a>&nbsp;
+    
+        <!--a href="/tag/#Swift" title="Tag: Swift" rel="tag">Swift</a-->
+        <a href="/tag/#Swift" title="Tag: Swift" rel="tag">Swift</a>&nbsp;
+    
+        <!--a href="/tag/#RealtimeDatabase" title="Tag: RealtimeDatabase" rel="tag">RealtimeDatabase</a-->
+        <a href="/tag/#RealtimeDatabase" title="Tag: RealtimeDatabase" rel="tag">RealtimeDatabase</a>
+    
+  
+
+</span>
+
+            </div>
+
+        </div>
+        <hr>
+        <article itemscope itemtype="http://schema.org/BlogPosting">
+        <div id="mouse_no" oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
+        <p>안녕하세요! 웬스(ven2s)입니다. 오늘은 Firebase 실시간 데이터베이스 기본기능에 대해서 알아보려고 합니다.</p>
+
+<p>일단 이 포스팅은 iOS, Swift의 기본을 어느정도 익히신분을 대상으로 작성되었습니다.</p>
+
+<p>그리고 설정에 관한 부분은 공식 홈페이지가 더 잘나와 있기 때문에 별도로 작성하지 않겠습니다.</p>
+
+<p>그전에 앞서서 <font color="red">import</font><font color="brown"> Firebase</font>
+를 선언해주시고</p>
+
+<p>전역 변수로 아래와 같이 선언을 해주세요</p>
+<div class="language-swift highlighter-rouge"><pre class="highlight"><code><span class="k">var</span> <span class="nv">ref</span> <span class="p">:</span> <span class="kt">FIRDatabaseReference</span><span class="o">!</span> <span class="o">=</span> <span class="kt">FIRDatabase</span><span class="o">.</span><span class="nf">database</span><span class="p">()</span><span class="o">.</span><span class="nf">reference</span><span class="p">()</span>
+</code></pre>
+</div>
+<p>기본적인 설정인 AppDelegate.swift 파일내의 설정과 Info.plist를 프로젝트에 넣으셨다면 정상적으로 작동이 될껍니다. 만약 안된다면… 설정하는 부분을 차근히 해보시길 권장 드립니다.</p>
+
+<p>다시 한번 말씀드리지만 설정에 대한 부분은 공식홈페이지가 더 자세히 나와 있으니 따로 설명은 하지 않겠습니다.</p>
+
+<p>그럼 시작 해보도록 할까욧!!!</p>
+
+<h2 id="1-firebase-실시간데이터베이스-읽기">1. Firebase 실시간데이터베이스 읽기</h2>
+
+<p>저번 포스팅에서 언급을 했듯이 Firebase(이하 파베)는 Document형테이고 트리구조라고 말씀을 드렸습니다.<br />
+그렇기 때문에 지금 미리 선언된 ref 변수를 사용한다고 해도 전체를 가져오게 될껍니다.</p>
+
+<p>그래서 child([명칭]) 을 사용해서 특정 노드에 들어가 데이터를 읽고 축적을 할수 있습니다.<br />
+여기서는 Board라는 노드를 가지고 설명을 하겠습니다</p>
+
+<p>그래서 우리들은 아래와 같이 선언을 해주고 시작을 할껍니다.</p>
+
+<div class="language-swift highlighter-rouge"><pre class="highlight"><code><span class="k">var</span> <span class="nv">boardRef</span> <span class="o">=</span> <span class="n">ref</span><span class="o">.</span><span class="nf">child</span><span class="p">(</span><span class="s">"Board"</span><span class="p">)</span>
+</code></pre>
+</div>
+
+<p>위와 같이 선언을 하셔도 되고 아예처음 부터 합쳐도 괜찮습니다. 하지만 다른 노드를 호출할일이 있을지도 모르니 일단은 위에와 같이 선언하도록 합시다</p>
+
+<p>자 그럼 이제 읽기에 대한 부분을 이야기 해보려고 합니다.</p>
+
+<p>읽기는 기본적으로 2개의 함수를 제공을 해주는데 아래와 같습니다</p>
+
+<div class="language-swift highlighter-rouge"><pre class="highlight"><code><span class="c1">//호출</span>
+<span class="kd">func</span> <span class="nf">observe</span><span class="p">(</span><span class="n">_</span> <span class="nv">eventType</span><span class="p">:</span> <span class="kt">FIRDataEventType</span><span class="p">,</span> <span class="n">with</span> <span class="nv">block</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">FIRDataSnapshot</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Swift</span><span class="o">.</span><span class="kt">Void</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">UInt</span>
+
+<span class="c1">//한번호출</span>
+<span class="kd">func</span> <span class="nf">observeSingleEvent</span><span class="p">(</span><span class="n">of</span> <span class="nv">eventType</span><span class="p">:</span> <span class="kt">FIRDataEventType</span><span class="p">,</span> <span class="n">with</span> <span class="nv">block</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">FIRDataSnapshot</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Swift</span><span class="o">.</span><span class="kt">Void</span><span class="p">)</span>
+</code></pre>
+</div>
+
+<p>기본적으로 파베는 비동기를 지원하고 있습니다. 그리고 FIRDataEventType 에 따라 호출될수 있도록 선언 할 수 있습니다.</p>
+
+<p>또한 계속 호출 할건지 최초 한번만 호출을 할껀지까지 제공을 해주고 있습니다.</p>
+
+<p>하지만 역시 주의해서 사용을 해야 합니다. 저희가 노드를 나눠서 사용을 하고 있지만 계속 추가가 되고 있다면 사용자 측면에서는 통신비가 증가 할수가 있습니다. 잘 구분해서 쓰시길 권장 드립니다.</p>
+
+<p>그럼 이벤트 타입에 대해서 알아보도록 하겠습니다.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>타입</th>
+      <th>설명</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>value</td>
+      <td>데이터 전체를 가지고 옵니다</td>
+    </tr>
+    <tr>
+      <td>childAdded</td>
+      <td>노드에서 부터 추가되는 데이터를 감지합니다.</td>
+    </tr>
+    <tr>
+      <td>childRemoved</td>
+      <td>노드에서 부터 삭제되는 데이터를 감지합니다.</td>
+    </tr>
+    <tr>
+      <td>childChanged</td>
+      <td>노드에서 부터 변경되는 데이터를 감지합니다.</td>
+    </tr>
+    <tr>
+      <td>childMoved</td>
+      <td>노드에서 부터 이동하는 데이터를 감지합니다.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>위에 같이 이벤트에 관련된 부분을 적절히 사용 하시면 됩니다.
+미리 언급을 했듯이 주의 하셔야 하는 부분도 있습니다.
+observeSingle을 쓸것인가? observe를 쓸것인가를 잘 판단하시길 바랍니다.</p>
+
+<p>일단 가장 많이 사용 되는 부분인  value 데이터를 그냥 가지고 온다고 생각하시면 됩니다.
+가능하면 싱글을 사용하셔서 하시는걸 추천 드리겠습니다.</p>
+
+<p>그냥 observe를 사용할 경우 계속 호출이 되는 경우가 있었기 때문에 value는 obserSingleEvent로 호출하시길 권장 드립니다(반드시는 아닙니다. 상황에 따라서는 observe를 쓰셔야 할수도 있어요)</p>
+
+<p>그리고 여기서 또 언급 하고 가야 하는 부분은 FIRDataSnapshot(이하 스냅샷)일것 같습니다.
+이 스냅샷은 데이터가 가져오는 형태라고 생각하시면 됩니다. 기존의 데이터베이스는 JSON으로 되어 있습니다.
+스냅샷을 사용 하면 Swift에 맞도록 SDK에서 제공을 해줍니다. Dictionary타입으로 리턴이 됩니다.</p>
+
+<div class="language-swift highlighter-rouge"><pre class="highlight"><code><span class="k">let</span> <span class="nv">value</span> <span class="o">=</span> <span class="n">snapshot</span><span class="o">.</span><span class="n">value</span> <span class="k">as!</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span><span class="kt">Any</span><span class="p">]</span>
+</code></pre>
+</div>
+
+<p>가장 좋은건 역시 break point를 걸어서 로그 커맨드라인 명령어를 통해서 확인해보시면 JSON형식으로 찍혀 있습니다. 그런데 문제는 iOS에서 가장 많이 사용 되는 Array타입으로는 변환을 하려면 어떻게 하는게 좋을까요? Enumerated 를 사용해서 변환을 하면 됩니다.</p>
+
+<div class="language-swift highlighter-rouge"><pre class="highlight"><code><span class="k">var</span> <span class="nv">tempList</span> <span class="p">:</span> <span class="kt">Array</span><span class="o">&lt;</span><span class="kt">Any</span><span class="o">&gt;!</span> <span class="o">=</span> <span class="kt">Array</span><span class="p">()</span> <span class="c1">//초기화</span>
+            
+<span class="k">let</span> <span class="nv">enumerated</span> <span class="o">=</span> <span class="n">snapshot</span><span class="o">.</span><span class="n">children</span>
+<span class="k">while</span> <span class="k">let</span> <span class="nv">rest</span> <span class="o">=</span> <span class="n">enumerated</span><span class="o">.</span><span class="nf">nextObject</span><span class="p">()</span> <span class="k">as?</span> <span class="kt">FIRDataSnapshot</span> <span class="p">{</span>
+    <span class="k">var</span> <span class="nv">key</span> <span class="o">=</span> <span class="n">rest</span><span class="o">.</span><span class="n">key</span> <span class="c1">//String</span>
+    <span class="k">var</span> <span class="nv">dictionary</span> <span class="o">=</span> <span class="n">rest</span><span class="o">.</span><span class="n">value</span> <span class="k">as!</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="kt">Any</span><span class="p">]</span>
+
+    <span class="n">tempList</span><span class="o">.</span><span class="nf">append</span><span class="p">(</span><span class="n">dictionary</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>위에 코드는 Firebase 실시간데이터베이스 예제 프로젝트에서도 사용하는 방식입니다.(코드는 똑같지 않을수도 있습니다.)</p>
+
+<p>이렇게 사용을 하신다면 기본적인 Dictionary 와 Array 타입으로 변환하시기 편하실껍니다.
+여기서 나오는 <strong>key</strong>는 사실 중요한 부분입니다. 이부분은 이 아래 2번쨰 쓰기(저장)을 할때 다루도록 하겠습니다.</p>
+
+<h2 id="2-firebase-실시간데이터베이스-쓰기">2. Firebase 실시간데이터베이스 쓰기</h2>
+<p>기존의 데이터를 저장 하기 위해서는 3가지 정도의 방법이 있습니다. 그리고 고유값을 사용하기 위해서 사용하는 메소드 총 4개가 있습니다.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>메소드명</th>
+      <th>기능(혹은 용도)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>childByAutoId</td>
+      <td>고유값 생성</td>
+    </tr>
+    <tr>
+      <td>setValue</td>
+      <td>데이터를 저장할때</td>
+    </tr>
+    <tr>
+      <td>updateChildValues</td>
+      <td>데이터를 수정 혹은 저장 할때</td>
+    </tr>
+    <tr>
+      <td>runTransactionBlock</td>
+      <td>데이터를 순차적으로 저장 수정 해야 할때 (예 : 페북 좋아요)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>첫째로는 childByAutoId 는 고유값을 생성을 해주는 메소드 입니다. 
+간단하게 말하자면 key를 생성해주는 녀석입니다. 데이터베이스를 사용하다면 특정 값을 찾기 위해서 혹은
+비교하기 위해서 등의 이유로 고유키를 사용하게 됩니다 (게시판으로 치면 게시번호라고 보시면 됩니다.)</p>
+
+<p>그렇기 떄문에 이 글이 중복이 나지 않게 하거나, 혹은 특정값을 찾기 혹은 증명하는 용도로 많이 사용합니다. 
+여기서는 key라고 부르도록 하겠습니다. (이하 key 혹은 키)</p>
+
+<p>전번에도 말씀드렸듯이 Document타입인 파베 실시간데이터베이스는 트리형태의 구조를 가지고 있고,
+JSON 형태를 사용하고 있습니다. 그렇기 때문에 수많은 값을 증명하고 고유값을 부여해야 한다는 겁니다.</p>
+
+<p>사용법은 아래와 같습니다.</p>
+<div class="language-swift highlighter-rouge"><pre class="highlight"><code><span class="k">let</span> <span class="nv">ref</span> <span class="p">:</span> <span class="kt">FIRDatabaseReference</span><span class="o">!</span> <span class="o">=</span> <span class="kt">FIRDatabase</span><span class="o">.</span><span class="nf">database</span><span class="p">()</span><span class="o">.</span><span class="nf">reference</span><span class="p">()</span><span class="o">.</span><span class="nf">child</span><span class="p">(</span><span class="s">"board"</span><span class="p">)</span>
+<span class="k">let</span> <span class="nv">key</span> <span class="o">=</span> <span class="n">ref</span><span class="o">.</span><span class="nf">childByAutoId</span><span class="p">()</span><span class="o">.</span><span class="n">key</span> <span class="c1">//String</span>
+</code></pre>
+</div>
+
+<p>생각보다 간단합니다. (* 반드시 하나의 노드를 생성해서 사용하세요. child({노드이름}))</p>
+
+<p>이제 드디어 저장을 써보도록 하겠습니다.
+기본적으로 노드는 board로 잡아 놓고 시작을 하도록 하겠습니다.</p>
+
+<div class="language-swift highlighter-rouge"><pre class="highlight"><code><span class="k">let</span> <span class="nv">ref</span> <span class="p">:</span> <span class="kt">FIRDatabaseReference</span><span class="o">!</span> <span class="o">=</span> <span class="kt">FIRDatabase</span><span class="o">.</span><span class="nf">database</span><span class="p">()</span><span class="o">.</span><span class="nf">reference</span><span class="p">()</span><span class="o">.</span><span class="nf">child</span><span class="p">(</span><span class="s">"board"</span><span class="p">)</span>
+
+<span class="k">let</span> <span class="nv">data</span> <span class="p">:</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="kt">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s">"key"</span> <span class="p">:</span> <span class="n">ref</span><span class="o">.</span><span class="nf">childByAutoId</span><span class="p">()</span><span class="o">.</span><span class="n">key</span><span class="p">,</span>
+    <span class="s">"title"</span> <span class="p">:</span> <span class="s">"test"</span><span class="p">,</span>
+    <span class="s">"text"</span> <span class="p">:</span> <span class="s">"테스트로 일단 넣는 글입니다."</span><span class="p">,</span>
+    <span class="s">"recordTime"</span> <span class="p">:</span> <span class="kt">FIRServerValue</span><span class="o">.</span><span class="nf">timestamp</span><span class="p">()</span>
+<span class="p">]</span>
+
+<span class="n">ref</span><span class="o">.</span><span class="nf">setValue</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="nv">withCompletionBlock</span><span class="p">:</span> <span class="p">{</span> <span class="p">(</span><span class="n">error</span><span class="p">,</span> <span class="n">ref</span><span class="p">)</span> <span class="k">in</span>
+    <span class="k">if</span> <span class="k">let</span> <span class="nv">err</span> <span class="o">=</span> <span class="n">error</span> <span class="p">{</span>
+       <span class="nf">print</span><span class="p">(</span><span class="n">err</span><span class="o">.</span><span class="n">localizedDescription</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="n">ref</span><span class="o">.</span><span class="nf">observe</span><span class="p">(</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="nv">with</span><span class="p">:</span> <span class="p">{</span> <span class="p">(</span><span class="n">snapshot</span><span class="p">)</span> <span class="k">in</span>
+        <span class="k">guard</span> <span class="n">snapshot</span><span class="o">.</span><span class="nf">exists</span><span class="p">()</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="k">return</span>
+        <span class="p">}</span>
+        <span class="c1">//코드 작성</span>
+    <span class="p">}</span>
+<span class="p">})</span>
+</code></pre>
+</div>
+
+<p>만약 컴플리션 블록을 안쓸 예정이라면 data 만 넣어주셔도 됩니다. (singleobserve가 아닐경우)
+그리고 setValue는 업데이트를 할때도 사용이 가능합니다.</p>
+
+<p>updateChildValues 에 대해서 해보려고 합니다.
+함수명에서도 나와있듯이 업데이트를 할경우에 많이 사용이 되는 구문입니다. 다만 차이가 조금 있다면 
+아래 코드를 봅시다</p>
+
+<div class="language-swift highlighter-rouge"><pre class="highlight"><code><span class="k">let</span> <span class="nv">userID</span> <span class="o">=</span> <span class="kt">FIRAuth</span><span class="o">.</span><span class="nf">auth</span><span class="p">()</span><span class="o">.</span><span class="n">currentUser</span><span class="o">.</span><span class="n">uid</span>
+<span class="k">let</span> <span class="nv">key</span> <span class="o">=</span> <span class="n">ref</span><span class="o">.</span><span class="nf">child</span><span class="p">(</span><span class="s">"board"</span><span class="p">)</span><span class="o">.</span><span class="nf">childByAutoId</span><span class="p">()</span><span class="o">.</span><span class="n">key</span>
+<span class="k">let</span> <span class="nv">post</span> <span class="o">=</span> <span class="p">[</span><span class="s">"uid"</span><span class="p">:</span> <span class="n">userID</span><span class="p">,</span>
+            <span class="s">"author"</span><span class="p">:</span> <span class="n">username</span><span class="p">,</span>
+            <span class="s">"title"</span><span class="p">:</span> <span class="n">title</span><span class="p">,</span>
+            <span class="s">"body"</span><span class="p">:</span> <span class="n">body</span><span class="p">]</span>
+<span class="k">let</span> <span class="nv">childUpdates</span> <span class="o">=</span> <span class="p">[</span><span class="s">"/board/</span><span class="se">\(</span><span class="n">key</span><span class="se">)</span><span class="s">"</span><span class="p">:</span> <span class="n">post</span><span class="p">,</span>
+                    <span class="s">"/user-posts/</span><span class="se">\(</span><span class="n">userID</span><span class="se">)</span><span class="s">/</span><span class="se">\(</span><span class="n">key</span><span class="se">)</span><span class="s">/"</span><span class="p">:</span> <span class="n">post</span><span class="p">]</span>
+<span class="n">ref</span><span class="o">.</span><span class="nf">updateChildValues</span><span class="p">(</span><span class="n">childUpdates</span><span class="p">)</span>
+
+</code></pre>
+</div>
+
+<p>위의 코드와 같이 여러개의 노드를 동시에 해야 할경우에는 위에와 같이 사용하시면 됩니다.</p>
+
+<p>여기서 중요한 부분이 있는데 실시간 데이터 베이스다 보니 여러명의 사용자가 특정 글을 수정을 하게 될경우에는 (예시 댓글 혹은 좋아요 표현) 문제가 있을수 있습니다. (실시간의 특성의 문제죠)</p>
+
+<p>그렇기 때문에 runTransactionBlock을 사용 하면 됩니다. 이 함수는 순차적으로 데이터를 덮어 씌워줍니다. 그렇기 때문에 여러명이 한글에 대해서 댓글을 달거나 좋아요 표현을 할경우 순서대로 처리해줍니다.</p>
+
+<div class="language-swift highlighter-rouge"><pre class="highlight"><code><span class="n">ref</span><span class="o">.</span><span class="nf">runTransactionBlock</span><span class="p">({</span> <span class="p">(</span><span class="nv">currentData</span><span class="p">:</span> <span class="kt">FIRMutableData</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">FIRTransactionResult</span> <span class="k">in</span>
+  <span class="k">if</span> <span class="k">var</span> <span class="nv">post</span> <span class="o">=</span> <span class="n">currentData</span><span class="o">.</span><span class="n">value</span> <span class="k">as?</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="kt">AnyObject</span><span class="p">],</span> <span class="k">let</span> <span class="nv">uid</span> <span class="o">=</span> <span class="kt">FIRAuth</span><span class="o">.</span><span class="nf">auth</span><span class="p">()?</span><span class="o">.</span><span class="n">currentUser</span><span class="p">?</span><span class="o">.</span><span class="n">uid</span> <span class="p">{</span>
+    <span class="k">var</span> <span class="nv">stars</span> <span class="p">:</span> <span class="kt">Dictionary</span><span class="o">&lt;</span><span class="kt">String</span><span class="p">,</span> <span class="kt">Bool</span><span class="o">&gt;</span>
+    <span class="n">stars</span> <span class="o">=</span> <span class="n">post</span><span class="p">[</span><span class="s">"stars"</span><span class="p">]</span> <span class="k">as?</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="kt">Bool</span><span class="p">]</span> <span class="p">??</span> <span class="p">[:]</span>
+    <span class="k">var</span> <span class="nv">starCount</span> <span class="o">=</span> <span class="n">post</span><span class="p">[</span><span class="s">"starCount"</span><span class="p">]</span> <span class="k">as?</span> <span class="kt">Int</span> <span class="p">??</span> <span class="mi">0</span>
+    <span class="k">if</span> <span class="k">let</span> <span class="nv">_</span> <span class="o">=</span> <span class="n">stars</span><span class="p">[</span><span class="n">uid</span><span class="p">]</span> <span class="p">{</span>
+      <span class="c1">// Unstar the post and remove self from stars</span>
+      <span class="n">starCount</span> <span class="o">-=</span> <span class="mi">1</span>
+      <span class="n">stars</span><span class="o">.</span><span class="nf">removeValueForKey</span><span class="p">(</span><span class="n">uid</span><span class="p">)</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="c1">// Star the post and add self to stars</span>
+      <span class="n">starCount</span> <span class="o">+=</span> <span class="mi">1</span>
+      <span class="n">stars</span><span class="p">[</span><span class="n">uid</span><span class="p">]</span> <span class="o">=</span> <span class="kc">true</span>
+    <span class="p">}</span>
+    <span class="n">post</span><span class="p">[</span><span class="s">"starCount"</span><span class="p">]</span> <span class="o">=</span> <span class="n">starCount</span>
+    <span class="n">post</span><span class="p">[</span><span class="s">"stars"</span><span class="p">]</span> <span class="o">=</span> <span class="n">stars</span>
+
+    <span class="c1">// Set value and report transaction success</span>
+    <span class="n">currentData</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">post</span>
+
+    <span class="k">return</span> <span class="kt">FIRTransactionResult</span><span class="o">.</span><span class="nf">successWithValue</span><span class="p">(</span><span class="n">currentData</span><span class="p">)</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="kt">FIRTransactionResult</span><span class="o">.</span><span class="nf">successWithValue</span><span class="p">(</span><span class="n">currentData</span><span class="p">)</span>
+<span class="p">})</span> <span class="p">{</span> <span class="p">(</span><span class="n">error</span><span class="p">,</span> <span class="n">committed</span><span class="p">,</span> <span class="n">snapshot</span><span class="p">)</span> <span class="k">in</span>
+  <span class="k">if</span> <span class="k">let</span> <span class="nv">error</span> <span class="o">=</span> <span class="n">error</span> <span class="p">{</span>
+    <span class="nf">print</span><span class="p">(</span><span class="n">error</span><span class="o">.</span><span class="n">localizedDescription</span><span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>중요한 부분은 마지막 리턴을 해야 하는 부분을 <code class="highlighter-rouge">FIRTransactionResult.successWithValue(currentData)</code> 사용해서 넣어주면 됩니다. 코드로만으로도 충분하다고 생각하기 때문에 생략하겠습니다.
+코드는 개인이 작성한 코드도 있고 파베 공식부분에서도 나오는 부분을 섞어서 사용을 했습니다.</p>
+
+<p>어느정도 저장에 대해서 이해가 되셨는지 모르겠네요 기능 위주의 설명이다 보니 설명이 부족할 수 있습니다. 
+Document를 참고하시거나 댓글에 추가적으로 질문을 해주셔도 됩니다.</p>
+
+<h2 id="3-firebase-실시간데이터베이스-삭제">3. Firebase 실시간데이터베이스 삭제</h2>
+
+<p>이번엔 삭제에 대해서 알아보려고 합니다. 완전삭제 입니다. 이부분에 대해서는 확실하게 해주고 넘어가야 겠네요
+간혹 서비스의 정책으로 인해서 몇개월 혹은 몇년동안 데이터를 유지해야 할경우에는 다른 방법으로 하시고 이녀석은 정말로 데이터의 완전 삭제 입니다. 그렇기 때문에 가능하면 유저에게 알림을 통해서 완전삭제의 메세지를 통해서 복구가 안됨을 고지 하셔야 합니다.</p>
+
+<p>사용법은 어렵지 않습니다</p>
+
+<div class="language-swift highlighter-rouge"><pre class="highlight"><code><span class="c1">//키값이 필수이다. (단, 코드에서는 노드 위치와 고유키값을 생략함)</span>
+<span class="n">ref</span><span class="o">.</span><span class="nf">child</span><span class="p">(</span><span class="n">key</span><span class="o">!</span><span class="p">)</span><span class="o">.</span><span class="nf">removeValue</span><span class="p">(</span><span class="nv">completionBlock</span><span class="p">:</span> <span class="p">{</span> <span class="p">(</span><span class="n">err</span><span class="p">,</span> <span class="n">ref</span><span class="p">)</span> <span class="k">in</span>
+    <span class="k">if</span> <span class="n">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+        <span class="nf">debugPrint</span><span class="p">(</span><span class="s">"failed to remove reply"</span><span class="p">)</span>
+        <span class="k">return</span>
+    <span class="p">}</span>
+<span class="p">})</span>
+
+</code></pre>
+</div>
+
+<p>위의 코드와 같이 삭제할때는 키값만 있으면 삭제가 됩니다. 그리고 확실하게 노드도 구분을 해줘야 한다.
+보통은 고유키 값이라서 중복된 부분이 있을리가 만무하지만 혹모르는 일이니 꼭 노드까지 다 붙여서 사용하시길 바랍니다.</p>
+
+<h2 id="4-firebase-실시간데이터베이스-기타">4. Firebase 실시간데이터베이스 기타</h2>
+
+<p>이 부분에서는 검색과 부족한 점에 대해서 말해볼까 합니다.
+일단 파베의 경우에는 조건에 대한 부분이 참 까다롭습니다. 특정 값의 대한 필터가 사실상 어렵습니다.</p>
+
+<p>SQL을 사용한다면 Where구문을 사용해서 원하는 조건을 찾아 주겠지만 여기서는 사실상 필터링을 앱에서 해야 합니다.</p>
+
+<p>기본적으로 파베에서는 정렬은 제공을 해줍니다.</p>
+
+<p><strong>키, 값 , 자식(child)</strong> 3가지를 제공을 해줍니다.</p>
+
+<p>ref를 선언하고 나서 아래 표의 3가지중 하나를 사용 하시면 됩니다.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>메소드명</th>
+      <th>설명</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>queryOrderedByKey</td>
+      <td>하위 키에 따라 결과를 정렬합니다.</td>
+    </tr>
+    <tr>
+      <td>queryOrderedByValue</td>
+      <td>하위 값에 따라 결과를 정렬합니다.</td>
+    </tr>
+    <tr>
+      <td>queryOrderedByChild</td>
+      <td>지정된 하위 키의 값에 따라 결과를 정렬합니다.</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="language-swift highlighter-rouge"><pre class="highlight"><code><span class="k">var</span> <span class="nv">ref</span> <span class="o">=</span> <span class="kt">FIRDatabaseReference</span><span class="o">!</span> <span class="o">=</span> <span class="kt">FIRDatabase</span><span class="o">.</span><span class="nf">database</span><span class="p">()</span><span class="o">.</span><span class="nf">reference</span><span class="p">()</span><span class="o">.</span><span class="nf">child</span><span class="p">(</span><span class="s">"board"</span><span class="p">)</span><span class="o">.</span><span class="nf">queryOrderedByChild</span><span class="p">(</span><span class="s">"createTime"</span><span class="p">)</span>
+</code></pre>
+</div>
+
+<p>게시판을 기준으로 하게 된다면 <strong>createTime(생성시간)</strong> 기준으로 정렬을 하면 될것 같습니다.
+기본적으로는 사전순, 오름차순 순으로 정렬이 됩니다.</p>
+
+<p>그럼 내림차순은 어떻게 써야 할까요? 
+아쉽게도 이런 것은 제공이 안됩니다. 그렇기 때문에 클로저를 이용해서 따로 처리를 해주셔야 합니다</p>
+
+<div class="language-swift highlighter-rouge"><pre class="highlight"><code><span class="k">var</span> <span class="nv">yourDataArray</span>
+<span class="n">yourDataArray</span><span class="o">.</span><span class="nf">sort</span><span class="p">({</span><span class="nv">$0</span><span class="o">.</span><span class="n">date</span> <span class="o">&gt;</span> <span class="nv">$1</span><span class="o">.</span><span class="n">date</span><span class="p">})</span>
+</code></pre>
+</div>
+
+<p><strong>sort()</strong>메소드는 swift에서 제공하는 옵션입니다. 자세한것은 다루지 않겠습니다.</p>
+
+<p>데이터필터링을 하기 위해서는 아래와 같은 표의 옵션들이 있습니다.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>필드명</th>
+      <th>용도</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>queryLimitedToFirst</td>
+      <td>정렬된 결과 목록에서 맨 처음부터 반환할 최대 항목 개수를 설정합니다.</td>
+    </tr>
+    <tr>
+      <td>queryLimitedToLast</td>
+      <td>정렬된 결과 목록에서 맨 끝부터 반환할 최대 항목 개수를 설정합니다.</td>
+    </tr>
+    <tr>
+      <td>queryStartingAtValue</td>
+      <td>선택한 정렬 기준 메소드에 따라 지정된 키 또는 값보다 크거나 같은 항목을 반환합니다.</td>
+    </tr>
+    <tr>
+      <td>queryEndingAtValue</td>
+      <td>선택한 정렬 기준 메소드에 따라 지정된 키 또는 값보다 작거나 같은 항목을 반환합니다.</td>
+    </tr>
+    <tr>
+      <td>queryEqualToValue</td>
+      <td>선택한 정렬 기준 메소드에 따라 지정된 키 또는 값과 동일한 항목을 반환합니다.</td>
+    </tr>
+  </tbody>
+</table>
+
+<ul>
+  <li>실제 queryLimited 메소드만 필드로 나눠지고 나머지는 메소드로 나눠집니다.</li>
+</ul>
+
+<p>사용하기따라 다르겠지만 다중 값에 대한 필터링은 힘듭니다.
+제목과 내용에 특정 값을 찾기라던가, 내가 원하는 특정의 뭔가를 임의적으로 하기엔 많이 부족합니다.</p>
+
+<p>그래도 페이징은 이렇게 할수 있습니다</p>
+
+<p>일단 페이징(Pagination 혹은 Paging)에 대해서는 가장 많이 쓰는 부분이기에 예재를 통해서 설명을 드리는 부분이 더 좋을것 같습니다.</p>
+
+<div class="language-swift highlighter-rouge"><pre class="highlight"><code><span class="k">var</span> <span class="nv">ref</span> <span class="o">=</span> <span class="kt">FIRDatabaseReference</span><span class="o">!</span> <span class="o">=</span> <span class="kt">FIRDatabase</span><span class="o">.</span><span class="nf">database</span><span class="p">()</span><span class="o">.</span><span class="nf">reference</span><span class="p">()</span><span class="o">.</span><span class="nf">child</span><span class="p">(</span><span class="s">"board"</span><span class="p">)</span>
+<span class="k">let</span> <span class="nv">rangeOfPosts</span> <span class="p">:</span> <span class="kt">UInt</span> <span class="o">=</span> <span class="mi">10</span>    <span class="c1">//페이지당 표현 갯수</span>
+<span class="k">var</span> <span class="nv">pageOfPosts</span>  <span class="p">:</span> <span class="kt">UInt</span> <span class="o">=</span> <span class="mi">1</span>     <span class="c1">//현재 페이지갯수</span>
+
+<span class="k">var</span> <span class="nv">lastestKey</span> <span class="p">:</span> <span class="kt">String</span><span class="p">?</span>        <span class="c1">//불러온 가장 마지막 키값</span>
+
+<span class="c1">//전체 갯수를 가져온다 (Reload 혹은 최초로딩시</span>
+    <span class="c1">//)</span>
+<span class="n">ref</span><span class="o">.</span><span class="nf">queryLimited</span><span class="p">(</span><span class="nv">toFirst</span><span class="p">:</span> <span class="n">rangeOfPosts</span> <span class="o">*</span> <span class="n">pageOfPosts</span><span class="p">)</span><span class="o">.</span><span class="nf">observeSingleEvent</span><span class="p">(</span><span class="nv">of</span><span class="p">:</span> <span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="nv">with</span><span class="p">:</span> <span class="p">{(</span><span class="n">snapshot</span><span class="p">)</span> <span class="k">in</span>
+    <span class="k">guard</span> <span class="n">snapshot</span><span class="o">.</span><span class="nf">exists</span><span class="p">()</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="k">return</span>
+    <span class="p">}</span>
+
+    <span class="c1">//검색된 값중 가장 마지막 키갑</span>
+    <span class="k">self</span><span class="o">.</span><span class="n">lastestKey</span> <span class="o">=</span> <span class="p">(</span><span class="n">snapshot</span><span class="o">.</span><span class="n">children</span><span class="o">.</span><span class="n">allObjects</span><span class="o">.</span><span class="n">last</span> <span class="k">as!</span> <span class="kt">FIRDataSnapshot</span><span class="p">)</span><span class="o">.</span><span class="n">key</span>
+
+    <span class="c1">//코드 생략</span>
+<span class="p">}</span>
+
+<span class="c1">//마지막 키값기준의 10개씩 가지고 온다.</span>
+<span class="n">ref</span><span class="o">.</span><span class="nf">queryStarting</span><span class="p">(</span><span class="nv">atValue</span><span class="p">:</span> <span class="n">lastestKey</span><span class="p">)</span><span class="o">.</span><span class="nf">queryLimited</span><span class="p">(</span><span class="nv">toFirst</span><span class="p">:</span> <span class="n">rangeOfPosts</span><span class="p">)</span><span class="o">.</span><span class="nf">observeSingleEvent</span><span class="p">(</span><span class="nv">of</span><span class="p">:</span> <span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="nv">with</span><span class="p">:</span> <span class="p">{(</span><span class="n">snapshot</span><span class="p">)</span> <span class="k">in</span>
+    <span class="k">guard</span> <span class="n">snapshot</span><span class="o">.</span><span class="nf">exists</span><span class="p">()</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="k">return</span>
+    <span class="p">}</span>
+
+    <span class="c1">//검색된 값중 가장 마지막 키갑</span>
+    <span class="k">self</span><span class="o">.</span><span class="n">lastestKey</span> <span class="o">=</span> <span class="p">(</span><span class="n">snapshot</span><span class="o">.</span><span class="n">children</span><span class="o">.</span><span class="n">allObjects</span><span class="o">.</span><span class="n">last</span> <span class="k">as!</span> <span class="kt">FIRDataSnapshot</span><span class="p">)</span><span class="o">.</span><span class="n">key</span>
+
+    <span class="c1">//코드 생략</span>
+<span class="p">}</span>
+
+</code></pre>
+</div>
+
+<p>위의 코드를 설명을 붙이자면 <code class="highlighter-rouge">swift var lastestKey : String?</code> 부분은 검색된 부분의 가장 마지막 값입니다. 왜 이렇게 사용을 하는가 싶겠지만…사실 파베는 저희들이 원하는 것을 정확하게 뽑아내기는 힘듭니다.</p>
+
+<p>예를 들자면 이곳 저곳의 데이터를 동시에 뽑아낼수가 없고 특정 범위중에서 만족하는 값(=교집합)을 뽑아 낼수 없습니다. 단순히 범위까지는 뽑아냅니다 toLast toFirst 등의 옵션으로 말이죠</p>
+
+<p>그럼 어떻게 해야 하나? 방법은 자체적으로 sort를 하는수 밖에 없습니다. 
+그나마 페이징은 조금 나은 편입니다. 위의 방법으로 원하는 갯수를 뽑아 낼수 있으니까요</p>
+
+<p>NoSQL 문서타입의 특성때문에 상황에 따른 적절한 검색이 좀 힘듭니다. 
+그냥 값을 가져와서 자체적으로 검색할수 있게 만드는것이 더 편하게 코딩하는 방법일껍니다.</p>
+
+<p>실시간데이터베이스에 관한 내용은 이걸로 마치려고 합니다.
+기존의 구글설명이 잘나와 있기도 한 이유가 있지만 파베의 실시간데이터베이스를 이해하는데
+조금은 도움이 되었으면 하기에 작성한 글입니다.</p>
+
+<p>사진도 없고 코드와 글뿐이지만 도움이 되셨으면 좋겠습니다.</p>
+
+<p>궁금하신점은 댓글 남겨주시면 도와 드리겠습니다.</p>
+
+
+        </div>
+        </article>
+        <hr>
+
+        
+        
+            
+            
+                
+                    
+                        
+                        <h2 id="similar_posts">Similar Posts</h2>
+                        <ul>
+                        
+                        <li class="relatedPost">
+                            <a href="/2017/05/17/RaspberryPI-And-Docker/">[공부해서남주기] Raspberry Pi 입문 그리고 Docker
+                            
+                            </a>
+                        </li>
+                        
+                        
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+        
+            
+            
+                
+                    
+                        
+                        <li class="relatedPost">
+                            <a href="/2017/04/19/Firebase-Realtime-Database-1/">[공부해서남주기] Firebase 실시간 데이터베이스 #1
+                            
+                            </a>
+                        </li>
+                        
+                        
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+        
+            
+            
+                
+                    
+                        
+                        <li class="relatedPost">
+                            <a href="/2016/05/14/Theorry-DataStructure-And-Algorism/">[이론] 자료구조와 알고리즘
+                            
+                            </a>
+                        </li>
+                        
+                        
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+        
+            
+            
+                
+                    
+                        
+                        <li class="relatedPost">
+                            <a href="/2016/05/14/Theorry-Computing-And-OS/">[이론] 컴퓨터의 연산 와 운영체제
+                            
+                            </a>
+                        </li>
+                        
+                        
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+        
+            
+            
+                
+                    
+                        
+                        <li class="relatedPost">
+                            <a href="/2016/05/03/Theory-About-Computer/">[이론] 컴퓨터란
+                            
+                            </a>
+                        </li>
+                        
+                        
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            
+        
+        
+            </ul>
+        
+
+        <div class="post-recent">
+    <div class="pre">
+        
+        <p><strong>
+Previous</strong> <a href="/2017/04/19/Firebase-Realtime-Database-1/">[공부해서남주기] Firebase 실시간 데이터베이스 #1</a></p>
+        
+    </div>
+    <div class="nex">
+
+        
+        <p><strong>Next</strong> <a href="/2017/05/17/RaspberryPI-And-Docker/">[공부해서남주기] Raspberry Pi 입문 그리고 Docker</a></p>
+        
+    </div>
+</div>
+
+
+        <h2 id="comments">Comments</h2>
+        
+
+
+<div id="disqus_thread"></div>
+<script>
+    /**
+     * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+     */
+
+    var disqus_config = function() {
+        this.page.url = 'http://localhost:4000/2017/04/20/Firebase-Realtime-Database-2/'; // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = 'http://localhost:4000/2017/04/20/Firebase-Realtime-Database-2/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document,
+            s = d.createElement('script');
+
+        s.src = '//ven2s.disqus.com/embed.js';
+
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+
+
+    </div>
+    <button class="anchor"><i class="fa fa-anchor"></i></button>
+    <div class="right">
+        <div class="wrap">
+
+            <!-- Content -->
+            <div class="side content">
+                <div>
+                    Content
+                </div>
+                <ul id="content-side" class="content-ul">
+                    
+                    <li><a href="#similar_posts">Similar Posts</a></li>
+                    
+                    <li><a href="#comments">Comments</a></li>
+                </ul>
+            </div>
+            <!-- 其他div框放到这里 -->
+            <!-- <div class="side">bbbb</div> -->
+        </div>
+    </div>
+</div>
+<script>
+/**
+ * target _blank
+ */
+(function() {
+    var aTags = document.querySelectorAll('article a:not([id])')
+    for (var i = 0; i < aTags.length; i++) {
+        aTags[i].setAttribute('target', '_blank')
+    }
+}());
+</script>
+<script src="/js/pageContent.js " charset="utf-8"></script>
+
+
+    <footer class="site-footer">
+
+
+    <div class="wrapper">
+
+        <p class="description">
+            
+        </p>
+        <p class="contact">
+            Contact me at: 
+            <a href="https://github.com/ven2s" title="GitHub"><i class="fa fa-github" aria-hidden="true"></i></a>  
+            <a href="mailto:ven2s.soft@gmail.com" title="email"><i class="fa fa-envelope-o" aria-hidden="true"></i></a>        
+        </p>
+       <!--  <p>
+            
+Total visits to this site <span id="busuanzi_value_site_pv"></span>, the number of visitors to this site <span id="busuanzi_value_site_uv"></span> The total amount of reading in this article <span id="busuanzi_value_page_pv"></span>
+        </p> -->
+        <p>Copyright© 2016 by David June Kang(ven2s). All rights reserved.</p>
+        <p class="power">
+            <span>
+                Site powered by <a href="https://jekyllrb.com/">Jekyll</a> & <a href="https://pages.github.com/">Github Pages</a>.
+            </span>
+            <span>
+                Theme designed by <a href="https://github.com/Gaohaoyang">HyG</a>.
+            </span>
+        </p>
+    </div>
+</footer>
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+    <div class="back-to-top">
+    <a href="#top" data-scroll>
+        <i class="fa fa-arrow-up" aria-hidden="true"></i>
+    </a>
+</div>
+
+    <script src=" /js/main.js " charset="utf-8"></script>
+    <script src=" /js/smooth-scroll.min.js " charset="utf-8"></script>
+    <script type="text/javascript">
+      smoothScroll.init({
+        speed: 500, // Integer. How fast to complete the scroll in milliseconds
+        easing: 'easeInOutCubic', // Easing pattern to use
+        offset: 20, // Integer. How far to offset the scrolling anchor location in pixels
+      });
+    </script>
+    <!-- <script src=" /js/scroll.min.js " charset="utf-8"></script> -->
+  </body>
+
+</html>

@@ -30,7 +30,7 @@ Java와 JSP를 통해 서버프레임워크 개발 및 유지보수를 한 경�
 ## 연락처(Contacts)
 
 * GitHub：[ven2s](https://github.com/ven2s)
-* Email：wajl1004@gmail.com
+* Email：[wajl1004@gmail.com](mailto:wajl1004@gmail.com)
 
 
 ## 이 사이트에 대하여
@@ -43,10 +43,11 @@ Java와 JSP를 통해 서버프레임워크 개발 및 유지보수를 한 경�
 
 현재 사용하고 있는 테마는 아래에 있는 링크에서 수정을 하여서 사용 하고 있습니다.
 
-jekyll theme : [https://github.com/Gaohaoyang/gaohaoyang.github.io](https://github.com/Gaohaoyang/gaohaoyang.github.io)**
+**jekyll theme : [https://github.com/Gaohaoyang/gaohaoyang.github.io](https://github.com/Gaohaoyang/gaohaoyang.github.io)**
 
 ### Update Log
  - 2017.06.12 : Theme 변경 및 수정
+ - 2017.06.14 : 기타 플러그인(youtube, 우클릭방지) 추가 및 수정
 
 
 ## Links

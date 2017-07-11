@@ -3,10 +3,10 @@
   <channel>
     <title>웬스의 Log(&quot;일상&quot;, &quot;공부&quot;, &quot;관심사&quot;, &quot;기타등&quot;)</title>
     <description></description>
-    <link>https://ven2s.github.io/</link>
-    <atom:link href="https://ven2s.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 11 Jul 2017 17:17:13 +0900</pubDate>
-    <lastBuildDate>Tue, 11 Jul 2017 17:17:13 +0900</lastBuildDate>
+    <link>http://localhost:4000/</link>
+    <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Tue, 11 Jul 2017 17:27:55 +0900</pubDate>
+    <lastBuildDate>Tue, 11 Jul 2017 17:27:55 +0900</lastBuildDate>
     <generator>Jekyll v3.4.0</generator>
     
       <item>
@@ -294,8 +294,8 @@ Document를 참고하시거나 댓글에 추가적으로 질문을 해주셔도 
 
 </description>
         <pubDate>Thu, 20 Apr 2017 11:29:00 +0900</pubDate>
-        <link>https://ven2s.github.io/2017/04/20/Firebase-Realtime-Database-2/</link>
-        <guid isPermaLink="true">https://ven2s.github.io/2017/04/20/Firebase-Realtime-Database-2/</guid>
+        <link>http://localhost:4000/2017/04/20/Firebase-Realtime-Database-2/</link>
+        <guid isPermaLink="true">http://localhost:4000/2017/04/20/Firebase-Realtime-Database-2/</guid>
         
         <category>공부해서남주기</category>
         
@@ -564,8 +564,8 @@ NoSQL은 3.5세대의 새로운 형태의 차세대데이터베이스입니다.
 &lt;a href=&quot;https://firebase.google.com/docs/database/security/&quot;&gt;https://firebase.google.com/docs/database/security/&lt;/a&gt;
 </description>
         <pubDate>Wed, 19 Apr 2017 18:00:00 +0900</pubDate>
-        <link>https://ven2s.github.io/2017/04/19/Firebase-Realtime-Database-1/</link>
-        <guid isPermaLink="true">https://ven2s.github.io/2017/04/19/Firebase-Realtime-Database-1/</guid>
+        <link>http://localhost:4000/2017/04/19/Firebase-Realtime-Database-1/</link>
+        <guid isPermaLink="true">http://localhost:4000/2017/04/19/Firebase-Realtime-Database-1/</guid>
         
         <category>공부해서남주기</category>
         
@@ -783,8 +783,8 @@ NoSQL은 3.5세대의 새로운 형태의 차세대데이터베이스입니다.
 
 </description>
         <pubDate>Sat, 14 May 2016 05:41:00 +0900</pubDate>
-        <link>https://ven2s.github.io/2016/05/14/Theorry-Computing-And-OS/</link>
-        <guid isPermaLink="true">https://ven2s.github.io/2016/05/14/Theorry-Computing-And-OS/</guid>
+        <link>http://localhost:4000/2016/05/14/Theorry-Computing-And-OS/</link>
+        <guid isPermaLink="true">http://localhost:4000/2016/05/14/Theorry-Computing-And-OS/</guid>
         
         <category>공부해서남주기</category>
         
@@ -1016,8 +1016,8 @@ NoSQL은 3.5세대의 새로운 형태의 차세대데이터베이스입니다.
 참고링크는 보았던 사이트중 가장 괜찮은 사이트만 올렸습니다.
 </description>
         <pubDate>Tue, 03 May 2016 20:50:00 +0900</pubDate>
-        <link>https://ven2s.github.io/2016/05/03/Theory-About-Computer/</link>
-        <guid isPermaLink="true">https://ven2s.github.io/2016/05/03/Theory-About-Computer/</guid>
+        <link>http://localhost:4000/2016/05/03/Theory-About-Computer/</link>
+        <guid isPermaLink="true">http://localhost:4000/2016/05/03/Theory-About-Computer/</guid>
         
         <category>공부해서남주기</category>
         

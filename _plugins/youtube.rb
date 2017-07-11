@@ -1,4 +1,4 @@
-module Jekyll
+#module Jekyll
   class YouTube < Liquid::Tag
     #Syntax = /^\s*([^\s]+)(\s+(\d+)\s+(\d+)\s*)?/
     Syntax = /^\s*([^\s]+)(?:\s+(\d+)\s+(\d+)\s*)?/
@@ -30,6 +30,7 @@ module Jekyll
   end
 
   class YouTubeMute < Liquid::Tag
+
     #Syntax = /^\s*([^\s]+)(\s+(\d+)\s+(\d+)\s*)?/
     Syntax = /^\s*([^\s]+)(?:\s+(\d+)\s+(\d+)\s*)?/
 
@@ -58,4 +59,4 @@ module Jekyll
 
     Liquid::Template.register_tag "youtube_mute", self
   end
-end
+#end
